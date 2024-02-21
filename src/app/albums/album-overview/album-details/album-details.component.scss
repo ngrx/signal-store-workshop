@@ -1,0 +1,26 @@
+:host {
+  text-align: center;
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  color: var(--mat-card-subtitle-text-color);
+}
+
+.album-info {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > p {
+    margin: 0;
+  }
+}

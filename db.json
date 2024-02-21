@@ -1,0 +1,444 @@
+{
+  "albums": [
+    {
+      "id": 1,
+      "title": "Unplugged",
+      "artist": "Eric Clapton",
+      "releaseDate": "1992-08-25",
+      "genre": "Blues",
+      "coverImage": "/assets/album-covers/unplugged.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Texas Flood",
+      "artist": "Stevie Ray Vaughan",
+      "releaseDate": "1983-06-13",
+      "genre": "Blues",
+      "coverImage": "/assets/album-covers/texas-flood.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Live at the Regal",
+      "artist": "BB King",
+      "releaseDate": "1965-11-21",
+      "genre": "Blues",
+      "coverImage": "/assets/album-covers/live-at-the-regal.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Are You Experienced",
+      "artist": "Jimi Hendrix",
+      "releaseDate": "1967-05-12",
+      "genre": "Rock",
+      "coverImage": "/assets/album-covers/are-you-experienced.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Eliminator",
+      "artist": "ZZ Top",
+      "releaseDate": "1983-03-23",
+      "genre": "Rock",
+      "coverImage": "/assets/album-covers/eliminator.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Still Got the Blues",
+      "artist": "Gary Moore",
+      "releaseDate": "1990-03-26",
+      "genre": "Blues Rock",
+      "coverImage": "/assets/album-covers/still-got-the-blues.jpg"
+    }
+  ],
+  "songs": [
+    {
+      "id": 101,
+      "title": "Tears in Heaven",
+      "duration": "4:35",
+      "albumId": 1
+    },
+    {
+      "id": 102,
+      "title": "Layla",
+      "duration": "7:10",
+      "albumId": 1
+    },
+    {
+      "id": 103,
+      "title": "Old Love",
+      "duration": "6:25",
+      "albumId": 1
+    },
+    {
+      "id": 104,
+      "title": "Before You Accuse Me",
+      "duration": "3:55",
+      "albumId": 1
+    },
+    {
+      "id": 105,
+      "title": "Running on Faith",
+      "duration": "6:30",
+      "albumId": 1
+    },
+    {
+      "id": 106,
+      "title": "Bell Bottom Blues",
+      "duration": "5:01",
+      "albumId": 1
+    },
+    {
+      "id": 107,
+      "title": "Hey Hey",
+      "duration": "3:16",
+      "albumId": 1
+    },
+    {
+      "id": 108,
+      "title": "Rollin' and Tumblin'",
+      "duration": "4:12",
+      "albumId": 1
+    },
+    {
+      "id": 109,
+      "title": "Lay Down Sally",
+      "duration": "5:34",
+      "albumId": 1
+    },
+    {
+      "id": 110,
+      "title": "Wonderful Tonight",
+      "duration": "4:42",
+      "albumId": 1
+    },
+    {
+      "id": 111,
+      "title": "Nobody Knows You When You're Down and Out",
+      "duration": "3:49",
+      "albumId": 1
+    },
+    {
+      "id": 112,
+      "title": "Signe",
+      "duration": "3:14",
+      "albumId": 1
+    },
+    {
+      "id": 201,
+      "title": "Love Struck Baby",
+      "duration": "2:24",
+      "albumId": 2
+    },
+    {
+      "id": 202,
+      "title": "Pride and Joy",
+      "duration": "3:40",
+      "albumId": 2
+    },
+    {
+      "id": 203,
+      "title": "Texas Flood",
+      "duration": "5:20",
+      "albumId": 2
+    },
+    {
+      "id": 204,
+      "title": "Tell Me",
+      "duration": "2:49",
+      "albumId": 2
+    },
+    {
+      "id": 205,
+      "title": "Testify",
+      "duration": "3:23",
+      "albumId": 2
+    },
+    {
+      "id": 206,
+      "title": "Rude Mood",
+      "duration": "4:40",
+      "albumId": 2
+    },
+    {
+      "id": 207,
+      "title": "Mary Had a Little Lamb",
+      "duration": "2:47",
+      "albumId": 2
+    },
+    {
+      "id": 208,
+      "title": "Dirty Pool",
+      "duration": "5:01",
+      "albumId": 2
+    },
+    {
+      "id": 209,
+      "title": "I'm Cryin'",
+      "duration": "3:44",
+      "albumId": 2
+    },
+    {
+      "id": 210,
+      "title": "Lenny",
+      "duration": "4:59",
+      "albumId": 2
+    },
+    {
+      "id": 301,
+      "title": "Every Day I Have the Blues",
+      "duration": "2:38",
+      "albumId": 3
+    },
+    {
+      "id": 302,
+      "title": "Sweet Little Angel",
+      "duration": "6:21",
+      "albumId": 3
+    },
+    {
+      "id": 303,
+      "title": "It's My Own Fault",
+      "duration": "3:29",
+      "albumId": 3
+    },
+    {
+      "id": 304,
+      "title": "How Blue Can You Get",
+      "duration": "3:29",
+      "albumId": 3
+    },
+    {
+      "id": 305,
+      "title": "Please Love Me",
+      "duration": "3:01",
+      "albumId": 3
+    },
+    {
+      "id": 306,
+      "title": "You Upset Me Baby",
+      "duration": "2:22",
+      "albumId": 3
+    },
+    {
+      "id": 307,
+      "title": "Worry, Worry",
+      "duration": "6:21",
+      "albumId": 3
+    },
+    {
+      "id": 308,
+      "title": "Woke Up This Mornin'",
+      "duration": "3:46",
+      "albumId": 3
+    },
+    {
+      "id": 309,
+      "title": "You Done Lost Your Good Thing Now",
+      "duration": "4:15",
+      "albumId": 3
+    },
+    {
+      "id": 310,
+      "title": "Help the Poor",
+      "duration": "2:36",
+      "albumId": 3
+    },
+    {
+      "id": 401,
+      "title": "Purple Haze",
+      "duration": "2:50",
+      "albumId": 4
+    },
+    {
+      "id": 402,
+      "title": "Manic Depression",
+      "duration": "3:46",
+      "albumId": 4
+    },
+    {
+      "id": 403,
+      "title": "Hey Joe",
+      "duration": "3:30",
+      "albumId": 4
+    },
+    {
+      "id": 404,
+      "title": "Love or Confusion",
+      "duration": "3:15",
+      "albumId": 4
+    },
+    {
+      "id": 405,
+      "title": "May This Be Love",
+      "duration": "3:10",
+      "albumId": 4
+    },
+    {
+      "id": 406,
+      "title": "I Don't Live Today",
+      "duration": "3:54",
+      "albumId": 4
+    },
+    {
+      "id": 407,
+      "title": "The Wind Cries Mary",
+      "duration": "3:20",
+      "albumId": 4
+    },
+    {
+      "id": 408,
+      "title": "Fire",
+      "duration": "2:43",
+      "albumId": 4
+    },
+    {
+      "id": 409,
+      "title": "Third Stone from the Sun",
+      "duration": "6:44",
+      "albumId": 4
+    },
+    {
+      "id": 410,
+      "title": "Foxey Lady",
+      "duration": "3:18",
+      "albumId": 4
+    },
+    {
+      "id": 411,
+      "title": "Are You Experienced",
+      "duration": "4:15",
+      "albumId": 4
+    },
+    {
+      "id": 412,
+      "title": "Stone Free",
+      "duration": "3:36",
+      "albumId": 4
+    },
+    {
+      "id": 501,
+      "title": "Gimme All Your Lovin'",
+      "duration": "4:00",
+      "albumId": 5
+    },
+    {
+      "id": 502,
+      "title": "Got Me Under Pressure",
+      "duration": "4:02",
+      "albumId": 5
+    },
+    {
+      "id": 503,
+      "title": "Sharp Dressed Man",
+      "duration": "4:12",
+      "albumId": 5
+    },
+    {
+      "id": 504,
+      "title": "I Need You Tonight",
+      "duration": "6:14",
+      "albumId": 5
+    },
+    {
+      "id": 505,
+      "title": "I Got the Six",
+      "duration": "2:52",
+      "albumId": 5
+    },
+    {
+      "id": 506,
+      "title": "Legs",
+      "duration": "4:34",
+      "albumId": 5
+    },
+    {
+      "id": 507,
+      "title": "Thug",
+      "duration": "4:17",
+      "albumId": 5
+    },
+    {
+      "id": 508,
+      "title": "TV Dinners",
+      "duration": "3:50",
+      "albumId": 5
+    },
+    {
+      "id": 509,
+      "title": "Dirty Dog",
+      "duration": "4:05",
+      "albumId": 5
+    },
+    {
+      "id": 510,
+      "title": "If I Could Only Flag Her Down",
+      "duration": "3:40",
+      "albumId": 5
+    },
+    {
+      "id": 511,
+      "title": "Bad Girl",
+      "duration": "3:14",
+      "albumId": 5
+    },
+    {
+      "id": 601,
+      "title": "Moving On",
+      "duration": "2:39",
+      "albumId": 6
+    },
+    {
+      "id": 602,
+      "title": "Oh Pretty Woman",
+      "duration": "4:25",
+      "albumId": 6
+    },
+    {
+      "id": 603,
+      "title": "Walking by Myself",
+      "duration": "2:56",
+      "albumId": 6
+    },
+    {
+      "id": 604,
+      "title": "Still Got the Blues",
+      "duration": "6:12",
+      "albumId": 6
+    },
+    {
+      "id": 605,
+      "title": "Texas Strut",
+      "duration": "4:52",
+      "albumId": 6
+    },
+    {
+      "id": 606,
+      "title": "Too Tired",
+      "duration": "2:54",
+      "albumId": 6
+    },
+    {
+      "id": 607,
+      "title": "King of the Blues",
+      "duration": "4:35",
+      "albumId": 6
+    },
+    {
+      "id": 608,
+      "title": "As the Years Go Passing By",
+      "duration": "7:47",
+      "albumId": 6
+    },
+    {
+      "id": 609,
+      "title": "Midnight Blues",
+      "duration": "4:59",
+      "albumId": 6
+    },
+    {
+      "id": 610,
+      "title": "That Kind of Woman",
+      "duration": "4:30",
+      "albumId": 6
+    }
+  ]
+}

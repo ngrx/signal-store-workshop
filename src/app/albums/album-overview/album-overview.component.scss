@@ -1,0 +1,16 @@
+h1 {
+  text-align: center;
+}
+
+.album-shell {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+ngrx-album-songs {
+  flex: 1;
+  max-width: 30rem;
+}

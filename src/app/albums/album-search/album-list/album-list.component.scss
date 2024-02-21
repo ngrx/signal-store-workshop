@@ -1,0 +1,53 @@
+@use "@angular/material" as mat;
+
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
+
+.albums-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+mat-card {
+  @include mat.elevation-transition();
+  @include mat.elevation(4);
+
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+
+  &:hover {
+    @include mat.elevation(9);
+  }
+}
+
+.album-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.album-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > p {
+    margin: 0;
+  }
+}
