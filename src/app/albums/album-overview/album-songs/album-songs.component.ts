@@ -20,7 +20,6 @@ import { AlbumSongsStore } from './album-songs.store';
     }
   `,
   styleUrl: './album-songs.component.scss',
-  providers: [AlbumSongsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlbumSongsComponent {

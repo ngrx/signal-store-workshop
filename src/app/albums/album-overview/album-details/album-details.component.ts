@@ -32,7 +32,6 @@ import { AlbumDetailsStore } from './album-details.store';
     }
   `,
   styleUrl: './album-details.component.scss',
-  providers: [AlbumDetailsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlbumDetailsComponent {
