@@ -10,6 +10,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { setAllEntities, withEntities } from '@ngrx/signals/entities';
 import { tapResponse } from '@ngrx/operators';
 import { SortOrder } from '@/shared/models/sort-order.model';
 import {
@@ -22,23 +23,22 @@ import { Album, searchAlbums, sortAlbums } from '@/albums/album.model';
 import { AlbumsService } from '@/albums/albums.service';
 
 export const AlbumSearchStore = signalStore(
+  withEntities<Album>(),
   withState({
-    albums: [] as Album[],
     query: '',
     order: 'asc' as SortOrder,
   }),
   withRequestStatus(),
-  withComputed(({ albums, query, order, isPending }) => {
+  withComputed(({ entities, query, order, isPending }) => {
     const filteredAlbums = computed(() => {
-      const searchedAlbums = searchAlbums(albums(), query());
-
+      const searchedAlbums = searchAlbums(entities(), query());
       return sortAlbums(searchedAlbums, order());
     });
 
     return {
       filteredAlbums,
       showProgress: isPending,
-      showSpinner: computed(() => isPending() && albums().length === 0),
+      showSpinner: computed(() => isPending() && entities().length === 0),
       totalAlbums: computed(() => filteredAlbums().length),
     };
   }),
@@ -60,7 +60,9 @@ export const AlbumSearchStore = signalStore(
           exhaustMap(() => {
             return albumsService.getAll().pipe(
               tapResponse({
-                next: (albums) => patchState(store, { albums }, setFulfilled()),
+                next: (albums) => {
+                  patchState(store, setAllEntities(albums), setFulfilled());
+                },
                 error: (error: { message: string }) => {
                   patchState(store, setError(error.message));
                 },
