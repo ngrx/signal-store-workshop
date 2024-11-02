@@ -6,7 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { exhaustMap, pipe, tap } from 'rxjs';
 import { patchState, signalState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { tapResponse } from '@ngrx/operators';
 import { ProgressBarComponent } from '@/shared/ui/progress-bar.component';
 import { SortOrder } from '@/shared/models/sort-order.model';
 import { AlbumsService } from '@/albums/albums.service';
@@ -63,18 +66,27 @@ export default class AlbumSearchComponent implements OnInit {
   );
   readonly totalAlbums = computed(() => this.filteredAlbums().length);
 
-  ngOnInit(): void {
-    patchState(this.state, { showProgress: true });
+  readonly loadAllAlbums = rxMethod<void>(
+    pipe(
+      tap(() => patchState(this.state, { showProgress: true })),
+      exhaustMap(() => {
+        return this.#albumsService.getAll().pipe(
+          tapResponse({
+            next: (albums) => {
+              patchState(this.state, { albums, showProgress: false });
+            },
+            error: (error: { message: string }) => {
+              this.#snackBar.open(error.message, 'Close', { duration: 5_000 });
+              patchState(this.state, { showProgress: false });
+            },
+          }),
+        );
+      }),
+    ),
+  );
 
-    this.#albumsService.getAll().subscribe({
-      next: (albums) => {
-        patchState(this.state, { albums, showProgress: false });
-      },
-      error: (error: { message: string }) => {
-        this.#snackBar.open(error.message, 'Close', { duration: 5_000 });
-        patchState(this.state, { showProgress: false });
-      },
-    });
+  ngOnInit(): void {
+    this.loadAllAlbums();
   }
 
   updateQuery(query: string): void {
