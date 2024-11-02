@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { exhaustMap, pipe, tap } from 'rxjs';
+import { exhaustMap, filter, pipe, tap } from 'rxjs';
 import {
   patchState,
   signalStore,
@@ -12,17 +12,23 @@ import {
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { SortOrder } from '@/shared/models/sort-order.model';
+import {
+  setError,
+  setFulfilled,
+  setPending,
+  withRequestStatus,
+} from '@/shared/state/request-status.feature';
 import { Album, searchAlbums, sortAlbums } from '@/albums/album.model';
 import { AlbumsService } from '@/albums/albums.service';
 
 export const AlbumSearchStore = signalStore(
   withState({
     albums: [] as Album[],
-    showProgress: false,
     query: '',
     order: 'asc' as SortOrder,
   }),
-  withComputed(({ albums, query, order, showProgress }) => {
+  withRequestStatus(),
+  withComputed(({ albums, query, order, isPending }) => {
     const filteredAlbums = computed(() => {
       const searchedAlbums = searchAlbums(albums(), query());
 
@@ -31,7 +37,8 @@ export const AlbumSearchStore = signalStore(
 
     return {
       filteredAlbums,
-      showSpinner: computed(() => showProgress() && albums().length === 0),
+      showProgress: isPending,
+      showSpinner: computed(() => isPending() && albums().length === 0),
       totalAlbums: computed(() => filteredAlbums().length),
     };
   }),
@@ -49,27 +56,31 @@ export const AlbumSearchStore = signalStore(
       },
       _loadAllAlbums: rxMethod<void>(
         pipe(
-          tap(() => patchState(store, { showProgress: true })),
+          tap(() => patchState(store, setPending())),
           exhaustMap(() => {
             return albumsService.getAll().pipe(
               tapResponse({
-                next: (albums) => {
-                  patchState(store, { albums, showProgress: false });
-                },
+                next: (albums) => patchState(store, { albums }, setFulfilled()),
                 error: (error: { message: string }) => {
-                  snackBar.open(error.message, 'Close', { duration: 5_000 });
-                  patchState(store, { showProgress: false });
+                  patchState(store, setError(error.message));
                 },
               }),
             );
           }),
         ),
       ),
+      _notifyOnError: rxMethod<string | null>(
+        pipe(
+          filter(Boolean),
+          tap((error) => snackBar.open(error, 'Close', { duration: 5_000 })),
+        ),
+      ),
     }),
   ),
   withHooks({
-    onInit({ _loadAllAlbums }) {
-      _loadAllAlbums();
+    onInit(store) {
+      store._loadAllAlbums();
+      store._notifyOnError(store.error);
     },
   }),
 );
