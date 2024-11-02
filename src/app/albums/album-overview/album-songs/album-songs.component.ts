@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatCard } from '@angular/material/card';
-import { Song } from '@/songs/song.model';
+import { AlbumSongsStore } from './album-songs.store';
 
 @Component({
   selector: 'ngrx-album-songs',
   standalone: true,
   imports: [MatProgressSpinner, MatCard],
   template: `
-    @if (isPending) {
+    @if (store.isPending()) {
       <mat-spinner />
     } @else {
-      @for (song of songs; track song.id) {
+      @for (song of store.entities(); track song.id) {
         <mat-card class="song">
           <p class="song-title">{{ song.title }}</p>
           <p>{{ song.duration }}</p>
@@ -20,14 +20,9 @@ import { Song } from '@/songs/song.model';
     }
   `,
   styleUrl: './album-songs.component.scss',
+  providers: [AlbumSongsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlbumSongsComponent {
-  readonly isPending = false;
-  readonly songs: Song[] = [
-    { id: 1, title: 'Song 1', duration: '3:00', albumId: 1 },
-    { id: 2, title: 'Song 2', duration: '3:20', albumId: 1 },
-    { id: 3, title: 'Song 3', duration: '3:40', albumId: 1 },
-    { id: 4, title: 'Song 4', duration: '3:60', albumId: 1 },
-  ];
+  readonly store = inject(AlbumSongsStore);
 }

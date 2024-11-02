@@ -2,7 +2,11 @@ import { inject } from '@angular/core';
 import { exhaustMap, pipe, tap } from 'rxjs';
 import { patchState, signalStore, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { setAllEntities, withEntities } from '@ngrx/signals/entities';
+import {
+  setAllEntities,
+  setEntity,
+  withEntities,
+} from '@ngrx/signals/entities';
 import { tapResponse } from '@ngrx/operators';
 import {
   setError,
@@ -19,6 +23,9 @@ export const AlbumsStore = signalStore(
   withEntities<Album>(),
   withRequestStatus(),
   withMethods((store, albumsService = inject(AlbumsService)) => ({
+    setAlbum(album: Album): void {
+      patchState(store, setEntity(album));
+    },
     loadAllAlbums: rxMethod<void>(
       pipe(
         tap(() => patchState(store, setPending())),
