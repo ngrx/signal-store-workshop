@@ -24,8 +24,7 @@
     "@ngrx/operators": "18.1.1",
     "@ngrx/signals": "18.1.1",
     "rxjs": "7.8.1",
-    "tslib": "2.6.2",
-    "zone.js": "0.15.0"
+    "tslib": "2.6.2"
   },
   "devDependencies": {
     "@angular/build": "18.2.11",
