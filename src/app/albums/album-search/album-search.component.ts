@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+} from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { patchState, signalState } from '@ngrx/signals';
 import { ProgressBarComponent } from '@/shared/ui/progress-bar.component';
 import { SortOrder } from '@/shared/models/sort-order.model';
-import { Album } from '@/albums/album.model';
+import { AlbumsService } from '@/albums/albums.service';
+import { Album, searchAlbums, sortAlbums } from '@/albums/album.model';
 import { AlbumFilterComponent } from './album-filter/album-filter.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 
@@ -10,49 +19,69 @@ import { AlbumListComponent } from './album-list/album-list.component';
   standalone: true,
   imports: [ProgressBarComponent, AlbumFilterComponent, AlbumListComponent],
   template: `
-    <ngrx-progress-bar [showProgress]="showProgress" />
+    <ngrx-progress-bar [showProgress]="state.showProgress()" />
 
     <div class="container">
-      <h1>Albums ({{ totalAlbums }})</h1>
+      <h1>Albums ({{ totalAlbums() }})</h1>
 
       <ngrx-album-filter
-        [query]="query"
-        [order]="order"
+        [query]="state.query()"
+        [order]="state.order()"
         (queryChange)="updateQuery($event)"
         (orderChange)="updateOrder($event)"
       />
 
-      <ngrx-album-list [albums]="albums" [showSpinner]="showSpinner" />
+      <ngrx-album-list
+        [albums]="filteredAlbums()"
+        [showSpinner]="showSpinner()"
+      />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AlbumSearchComponent {
-  readonly albums: Album[] = [
-    {
-      id: 1,
-      title: 'Album 1',
-      artist: 'Artist 1',
-      releaseDate: '2023-01-01',
-      genre: 'Genre 1',
-      coverImage: '/assets/album-covers/unplugged.jpg',
-    },
-    {
-      id: 2,
-      title: 'Album 2',
-      artist: 'Artist 2',
-      releaseDate: '2024-01-01',
-      genre: 'Genre 2',
-      coverImage: '/assets/album-covers/are-you-experienced.jpg',
-    },
-  ];
-  readonly query = '';
-  readonly order: SortOrder = 'asc';
-  readonly showSpinner = false;
-  readonly showProgress = false;
-  readonly totalAlbums = this.albums.length;
+export default class AlbumSearchComponent implements OnInit {
+  readonly #albumsService = inject(AlbumsService);
+  readonly #snackBar = inject(MatSnackBar);
 
-  updateQuery(query: string): void {}
+  readonly state = signalState({
+    albums: [] as Album[],
+    showProgress: false,
+    query: '',
+    order: 'asc' as SortOrder,
+  });
 
-  updateOrder(order: SortOrder): void {}
+  readonly filteredAlbums = computed(() => {
+    const searchedAlbums = searchAlbums(
+      this.state.albums(),
+      this.state.query(),
+    );
+
+    return sortAlbums(searchedAlbums, this.state.order());
+  });
+  readonly showSpinner = computed(
+    () => this.state.showProgress() && this.state.albums().length === 0,
+  );
+  readonly totalAlbums = computed(() => this.filteredAlbums().length);
+
+  ngOnInit(): void {
+    patchState(this.state, { showProgress: true });
+
+    this.#albumsService.getAll().subscribe({
+      next: (albums) => {
+        patchState(this.state, { albums, showProgress: false });
+      },
+      error: (error: { message: string }) => {
+        this.#snackBar.open(error.message, 'Close', { duration: 5_000 });
+        patchState(this.state, { showProgress: false });
+      },
+    });
+  }
+
+  updateQuery(query: string): void {
+    patchState(this.state, { query });
+  }
+
+  updateOrder(order: SortOrder): void {
+    patchState(this.state, { order });
+  }
 }
