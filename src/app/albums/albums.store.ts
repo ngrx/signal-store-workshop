@@ -10,6 +10,7 @@ import {
   setPending,
   withRequestStatus,
 } from '@/shared/state/request-status.feature';
+import { withStorageSync } from '@/shared/state/storage-sync.feature';
 import { Album } from '@/albums/album.model';
 import { AlbumsService } from '@/albums/albums.service';
 
@@ -36,4 +37,5 @@ export const AlbumsStore = signalStore(
       ),
     ),
   })),
+  withStorageSync('albumsState'),
 );
